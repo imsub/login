@@ -34,7 +34,7 @@ function App() {
         </div>
         <div>
         <label>Password:</label>
-        <input ref={password} type="text" placeholder='password' required></input>
+        <input ref={password} type="password" placeholder='password' required></input>
         </div>
         <button onClick={handler} type='submit'>Submit</button>
         </form>
