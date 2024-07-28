@@ -14,7 +14,6 @@ function App() {
       setLogin(true);
     }
     else if(userName == '' || pass ==''){
-      event.preventDefault();
       setTxt("");
     }
     else {
