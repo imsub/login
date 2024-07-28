@@ -1,44 +1,67 @@
-import { useState , useRef} from 'react'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [displayLogin, setLogin] = useState(false);
-  const username = useRef(null);
-  const password = useRef(null);
-  const [txt , setTxt] = useState(null);
+  const [userName , setUserName] = useState("");
+  const [password , setPassword] = useState("");
+  const [error , setError] = useState("");
+  const [isSubmitted , setIsSubmitted] = useState(false);
   const handler = (event)=>{
     event.preventDefault();
-    const userName = username.current.value;
-    const pass =  password.current.value;
-    if(userName === 'user' && pass === 'password'){
-      setLogin(true);
-    }
-    else if(userName == '' || pass ==''){
-      setTxt("");
+    if(userName === 'user' && password === 'password'){
+      setError("");
+      setIsSubmitted(true);
     }
     else {
-      setTxt("Invalid username or password");
+      setError("Invalid username or password");
+      setIsSubmitted(false);
     }
   }
-  return (
-    displayLogin ?
-      <div><p>Welcome, user!</p></div>
-      :
+  return(
+    <div>
+      <h1>Login Page</h1>
+      {isSubmitted?
+      (
       <div>
-        <h1>Login Page</h1>
-        <form >
-        <p>{txt}</p>
+        <p>Welcome, {userName}</p>
+      </div>  
+      )
+      :
+      (
+      <form onSubmit={handler}>
+        {error && <p className='error'>{error}</p>}
         <div>
-        <label>UserName:</label>
-        <input ref={username} type="text" placeholder='username' required></input>
+          <label htmlFor='username'>Username:</label>
+          <input
+            type="text"
+            id="username"
+            placeholder='username'
+            value={userName}
+            onChange={(e)=>{
+              setUserName(e.target.value);
+            }}
+            required
+          />
         </div>
         <div>
-        <label>Password:</label>
-        <input ref={password} type="password" placeholder='password' required></input>
+          <label htmlFor='password'>Password:</label>
+          <input
+            type="password"
+            id="password"
+            placeholder='password'
+            value={password}
+            onChange={(e)=>{
+              setPassword(e.target.value);
+            }}
+            required
+          />
         </div>
-        <button onClick={handler} type='submit'>Submit</button>
-        </form>
-      </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      )}
+    </div>
   )
 }
 
