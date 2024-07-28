@@ -7,7 +7,7 @@ function App() {
   const password = useRef(null);
   const [txt , setTxt] = useState(null);
   const handler = (event)=>{
-    //event.preventDefault();
+    event.preventDefault();
     const userName = username.current.value;
     const pass =  password.current.value;
     if(userName === 'user' && pass === 'password'){
